@@ -41,8 +41,10 @@ router.post('/api/users/signup', [
         const userJwt = jwt.sign({
             id: user.id,
             email: user.email
-            },  
-            "secretKey"
+            },
+            //Use ! to tell typescript that we know as a 
+            //fact that the environment variable is defined  
+            process.env.JWT_KEY!
         );
         
         //Store jwt on session object
