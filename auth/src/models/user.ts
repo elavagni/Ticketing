@@ -31,6 +31,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+},  { 
+    //TODO: Move this code to a better location later (DTO)
+    toJSON: {
+        transform(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.password;
+            delete ret.__v;
+        }
+    }
 });
 
 //Use the function keyword instead of the arrow function so that we can get access to the 
