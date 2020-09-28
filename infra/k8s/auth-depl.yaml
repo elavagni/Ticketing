@@ -16,6 +16,9 @@ spec:
         - name: auth
           image: elavagni/auth
           env:
+            - name: MONGO_URI
+              #//instead of using localhost, use the name of the cluster ip service that holds the mongodb database 
+              value: 'mongodb://auth-mongo-srv:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
