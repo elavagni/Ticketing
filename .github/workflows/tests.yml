@@ -1,12 +1,11 @@
 name: tests
 
-on: 
+on:
   pull_request
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.1.1
+      - uses: actions/checkout@v2
       - run: cd auth && npm install && npm run test:ci
-  
