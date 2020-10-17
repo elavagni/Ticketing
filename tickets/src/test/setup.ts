@@ -41,7 +41,8 @@ afterAll(async () => {
 global.getAuthCookie = () => {  
   // Build a JWT payload. {id, email}
   const payload = {
-    id: 'ffg23435',
+    //use a unique random value for the user id
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com'
   }; 
   //Create a JWT
