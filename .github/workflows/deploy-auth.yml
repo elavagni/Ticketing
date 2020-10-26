@@ -18,3 +18,13 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push elavagni/auth
+      - uses: azure/aks-set-context@v1
+        with:
+            creds: '${{ secrets.AZURE_CREDENTIALS }}'
+            resourceGroupName: 'Ticketing'
+            clusterName: 'TicketingCluster'
+        id: login
+      - uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            infra/k8s/auth-depl.yml    
