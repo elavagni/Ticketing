@@ -2,16 +2,17 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => {
+    console.log('Starting...')
 
-    if(!process.env.JWT_KEY) {
+    if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY must be defined');
     }
 
-    if(!process.env.MONGO_URI) {
+    if (!process.env.MONGO_URI) {
         throw new Error('MONGO_URI must be defined');
     }    
     
-    try{
+    try {
         //instead of using localhost, use the name of the cluster ip service that holds the mongodb database 
         await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
