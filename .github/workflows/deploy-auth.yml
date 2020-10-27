@@ -21,8 +21,8 @@ jobs:
       - uses: azure/aks-set-context@v1
         with:
             creds: '${{ secrets.AZURE_CREDENTIALS }}'
-            resourceGroupName: 'Ticketing'
-            clusterName: 'TicketingCluster'
+            resource-group: 'Ticketing'
+            cluster-name: 'TicketingCluster'
         id: login
       - uses: Azure/k8s-deploy@v1
         with:
