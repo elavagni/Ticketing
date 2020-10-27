@@ -24,7 +24,4 @@ jobs:
             resource-group: 'Ticketing'
             cluster-name: 'TicketingCluster'
         id: login
-      - uses: Azure/k8s-deploy@v1
-        with:
-          manifests: |
-            infra/k8s/auth-depl.yml    
+      - run: kubectl rollout restart deployment auth-depl
