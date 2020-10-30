@@ -2,16 +2,17 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => {
-
-    if(!process.env.JWT_KEY) {
+    //Add comment to test github action
+    console.log('Starting up from Azure...');
+    if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY must be defined');
     }
 
-    if(!process.env.MONGO_URI) {
+    if (!process.env.MONGO_URI) {
         throw new Error('MONGO_URI must be defined');
     }
     
-    try{
+    try {
         await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
