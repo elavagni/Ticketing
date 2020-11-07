@@ -1,4 +1,4 @@
-import moongse from 'mongoose';
+import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
 import { Order, OrderStatus } from '../../models/order';
@@ -6,7 +6,7 @@ import { Ticket } from '../../models/ticket';
 import { natsWrapper } from '../../nats-wrapper';
 
 it('returns an error if the ticket does not exist', async() => {
-    const ticketId = moongse.Types.ObjectId();
+    const ticketId = mongoose.Types.ObjectId();
 
     await request(app)
         .post('/api/orders')
@@ -16,15 +16,19 @@ it('returns an error if the ticket does not exist', async() => {
 });
 
 it('returns an error if the ticket is already reserved', async() => {
+    const id = new mongoose.Types.ObjectId().toHexString();
+
     const ticket = Ticket.build({
+        id: id,
         title: 'concert',
         price: 20
     });
+   
     await ticket.save();
 
     const order = Order.build({
         ticket, 
-        userId: 'adsfdggfg',
+        userId: id,
         status: OrderStatus.Created,
         expiresAt: new Date()
     })
@@ -40,7 +44,9 @@ it('returns an error if the ticket is already reserved', async() => {
 });
 
 it('reserves a ticket', async() => {
+    const id = new mongoose.Types.ObjectId().toHexString();
     const ticket = Ticket.build({
+        id: id,
         title: 'concert',
         price: 20
     });
@@ -54,7 +60,9 @@ it('reserves a ticket', async() => {
 });
 
 it('emits an order created', async() => {
+    const id = new mongoose.Types.ObjectId().toHexString();
     const ticket = Ticket.build({
+        id: id,
         title: 'concert',
         price: 20
     });
