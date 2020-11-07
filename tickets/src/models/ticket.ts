@@ -1,17 +1,19 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 //Describes the information required to save a record to the DB
 interface TicketAttrs {
     title: string;
-    price: number,
+    price: number;
     userId: string;
 }
 
 //Describes the information stored in the DB
 interface TicketDoc extends mongoose.Document {
     title: string;
-    price: number,
+    price: number;
     userId: string;
+    version: number;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
@@ -39,6 +41,9 @@ const ticketSchema= new mongoose.Schema({
         }
     }
 });
+
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
     return new Ticket(attrs);
