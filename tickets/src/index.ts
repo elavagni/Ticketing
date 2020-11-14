@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
+import { OrderCancelledLister } from './events/listeners/order-cancelled-listener';
 
 const start = async () => {
     console.log('Starting...')
@@ -42,6 +44,9 @@ const start = async () => {
         process.on('SIGINT', () => natsWrapper.client.close());
         //This one won't work in windows
         process.on('SIGTERM', () => natsWrapper.client.close());
+
+        new OrderCreatedListener(natsWrapper.client).listen();
+        new OrderCancelledLister(natsWrapper.client).listen();
         
         //instead of using localhost, use the name of the cluster ip service that holds the mongodb database 
         await mongoose.connect(process.env.MONGO_URI, {
