@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: expiration-redis-mongo-depl
+  name: expiration-redis-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: expiration-redis-mongo
+      app: expiration-redis
   template:
     metadata:
       labels:        
-        app: expiration-redis-mongo
+        app: expiration-redis
     spec:
       containers:
-        - name: expiration-redis-mongo
+        - name: expiration-redis
           image: redis
 ---
 apiVersion: v1
