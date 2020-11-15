@@ -1,4 +1,5 @@
 import { natsWrapper } from './nats-wrapper';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 const start = async () => {
     console.log('Starting...')
@@ -32,6 +33,8 @@ const start = async () => {
         process.on('SIGINT', () => natsWrapper.client.close());
         //This one won't work in windows
         process.on('SIGTERM', () => natsWrapper.client.close());
+
+        new OrderCreatedListener(natsWrapper.client).listen();
        
     } catch (err) {
         console.error(err);
