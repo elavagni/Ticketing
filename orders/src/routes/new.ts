@@ -9,7 +9,8 @@ import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+//Set the expiration time to 15 minutes in seconds
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;;
 
 router.post('/api/orders', requireAuth, [
     body('ticketId')
