@@ -3,8 +3,8 @@ import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
 import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
-import { Ticket } from './models/ticket';
 import { ExpirationCompletedListener } from './events/listeners/expiration-complete-listener';
+import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 
 const start = async () => {
     console.log('Starting...')
@@ -50,6 +50,7 @@ const start = async () => {
         new TicketCreatedListener(natsWrapper.client).listen();
         new TicketUpdatedListener(natsWrapper.client).listen();
         new ExpirationCompletedListener(natsWrapper.client).listen();
+        new PaymentCreatedListener(natsWrapper.client).listen();
         
         //instead of using localhost, use the name of the cluster ip service that holds the mongodb database 
         await mongoose.connect(process.env.MONGO_URI, {
