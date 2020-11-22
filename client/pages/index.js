@@ -7,10 +7,7 @@ const LandingPage = ({ currentUser }) => {
 }
 
 LandingPage.getInitialProps = async context => {
-    const httpClient = buildHttpClient(context);
-    const { data } = await httpClient.get('/api/users/currentuser');
-
-    return data;
+   return {};
 };
 
 export default LandingPage;
